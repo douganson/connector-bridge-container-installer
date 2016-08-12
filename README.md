@@ -1,9 +1,11 @@
 This is the installation script that can pull down and start the mbed Connector bridge.
 
 Usage:
+
    get_bridge.sh [watson | iothub | aws]
 
 Arguments:
+
    watson - instantiate a bridge for Watson IoT
 
    iotub - instantiate a bridge for Microsoft IoTHub

@@ -2,7 +2,7 @@ This is the installation script that can pull down and start the mbed Connector 
 
 Usage:
 
-   get_bridge.sh [watson | iothub | aws]
+   get_bridge.sh [watson | iothub | aws | generic-mqtt]
 
 Arguments:
 
@@ -11,6 +11,8 @@ Arguments:
    iotub - instantiate a bridge for Microsoft IoTHub
 
    aws - instantiate a bridge for AWS IoT
+
+   generic-mqtt - instantiate a bridge for a generic MQTT broker such as Mosquitto
 
 Once completed, the selected bridge runtime will be running. You can then:
 

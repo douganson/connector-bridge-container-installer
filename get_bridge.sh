@@ -9,7 +9,7 @@ SUFFIX=""
 DOCKER="`which docker`"
 
 if [ "${TYPE}X" = "X" ]; then
-    echo "Usage: $0 [watson | iothub | aws]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt]"
     exit 1
 fi
 
@@ -25,6 +25,10 @@ if [ "${TYPE}" = "aws" ]; then
     SUFFIX="awsiot"
 fi
 
+if [ "${TYPE}" = "generic-mqtt" ]; then
+    SUFFIX="mqtt"
+fi
+
 if [ "${SUFFIX}X" = "X" ]; then
     echo "Usage: $0 [watson | iothub | aws]"
     exit 2
@@ -32,13 +36,13 @@ fi
 
 if [ "${DOCKER}X" = "X" ]; then
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt]"
     exit 3
 fi
 
 if [ "${IP}X" = "X" ]; then
     echo "No IP address was found. Must be connected to the Internet to use."
-    echo "Usage: $0 [watson | iothub | aws]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt]"
     exit 4
 fi
 
@@ -89,6 +93,6 @@ if [ -x "${DOCKER}" ]; then
     fi 
 else
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt]"
     exit 3
 fi

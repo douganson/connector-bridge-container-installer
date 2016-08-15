@@ -7,6 +7,7 @@ IMAGE="danson/connector-bridge-container-"
 TYPE="$1"
 SUFFIX=""
 DOCKER="`which docker`"
+BRIDGE_SSH="2222"
 
 if [ "${TYPE}X" = "X" ]; then
     echo "Usage: $0 [watson | iothub | aws | generic-mqtt]"
@@ -79,7 +80,7 @@ if [ -x "${DOCKER}" ]; then
     ${DOCKER} pull ${IMAGE}
     if [ "$?" = "0" ]; then
        echo "Starting mbed Connector bridge image..."
-       ${DOCKER} run -d -p ${IP}:8883:8883 -p ${IP}:28519:28519 -p ${IP}:28520:28520 -p ${IP}:22:22 -p ${IP}:8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh
+       ${DOCKER} run -d -p ${IP}:28519:28519 -p ${IP}:28520:28520 -p ${IP}:${BRIDGE_SSH}:22 -p ${IP}:8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh
        if [ "$?" = "0" ]; then
            echo "mbed Connector bridge started!  SSH is available to log into the bridge runtime"
 	   exit 0

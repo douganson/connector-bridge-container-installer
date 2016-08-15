@@ -26,6 +26,6 @@ Once completed, the selected bridge runtime will be running. You can then:
 
 4). Complete the configuration of the bridge. After entering a given value, press "Save" before editing the next value... When all values are entered and "Saved", press "Restart"
 
-NOTE: Each bridge runtime also has "ssh" installed so that you can ssh into the runtime and tinker with it. The default username is "arm" and password "arm1234"
+NOTE: Each bridge runtime also has "ssh" (default port: 2222) installed so that you can ssh into the runtime and tinker with it. The default username is "arm" and password "arm1234"
 
 Enjoy!

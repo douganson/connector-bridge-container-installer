@@ -38,6 +38,4 @@ NOTE: Each bridge runtime also has "ssh" (default port: 2222) installed so that 
 
 NOTE: For the "getstarted" option, there is a NODEFLOW-getstarted.txt file that you can copy and paste into your NodeRED runtime located at http://<macOS or ubuntu host IP address>:2880 ... simply import and Deploy... You can then load and run the K64F sample https://github.com/ARMmbed/mbed-ethernet-sample-withdm and interact with it via the imported flow (you must change your MBED_ENDPOINT_NAME in both the endpoint code as well as the NODEFLOW nodes...)
 
-NOTE: For the "getstarted" and "generic-mqtt" options, FYI, for the python test scripts, I've had issues with paho-mqtt v1.2. Try v1.1... seems to work better.
-
 Enjoy!

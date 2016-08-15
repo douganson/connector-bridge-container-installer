@@ -35,7 +35,7 @@ fi
 if [ "${TYPE}" = "generic-mqtt-getstarted" ]; then
     SUFFIX="mqtt-getstarted"
     NODE_RED_PORT="-p ${IP}:2880:1880"
-    MQTT_PORT="-p ${IP}:2883:1883"
+    MQTT_PORT="-p ${IP}:3883:1883"
 fi
 
 if [ "${SUFFIX}X" = "X" ]; then

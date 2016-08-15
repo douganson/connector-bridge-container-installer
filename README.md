@@ -36,4 +36,6 @@ Once completed, the selected bridge runtime will be running (though unconfigured
 
 NOTE: Each bridge runtime also has "ssh" (default port: 2222) installed so that you can ssh into the runtime and tinker with it. The default username is "arm" and password "arm1234"
 
+NOTE: For the "getstarted" option, there is a NODEFLOW-getstarted.txt file that you can copy and paste into your NodeRED runtime located at http://<macOS or ubuntu host IP address>:2880 ... simply import and Deploy... You can then load and run the K64F sample https://github.com/ARMmbed/mbed-ethernet-sample-withdm and interact with it via the imported flow (you must change your MBED_ENDPOINT_NAME in both the endpoint code as well as the NODEFLOW nodes...)
+
 Enjoy!

@@ -2,7 +2,7 @@ This is the installation script that can pull down and start the mbed Connector 
 
 Usage:
 
-   get_bridge.sh [watson | iothub | aws | generic-mqtt]
+   get_bridge.sh [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]
 
 Arguments:
 
@@ -13,6 +13,8 @@ Arguments:
    aws - instantiate a bridge for AWS IoT
 
    generic-mqtt - instantiate a bridge for a generic MQTT broker such as Mosquitto
+ 
+   generic-mqtt-getstarted - Like "generic-mqtt" but also has embedded Mosquitto and NodeRED built in by default
 
 Once completed, the selected bridge runtime will be running. You can then:
 

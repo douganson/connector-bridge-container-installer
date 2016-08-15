@@ -8,9 +8,10 @@ TYPE="$1"
 SUFFIX=""
 DOCKER="`which docker`"
 BRIDGE_SSH="2222"
+NODE_RED_PORT=""
 
 if [ "${TYPE}X" = "X" ]; then
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]"
     exit 1
 fi
 
@@ -30,20 +31,25 @@ if [ "${TYPE}" = "generic-mqtt" ]; then
     SUFFIX="mqtt"
 fi
 
+if [ "${TYPE}" = "generic-mqtt-getstarted" ]; then
+    SUFFIX="mqtt-getstarted"
+    NODE_RED_PORT="-p ${IP}:1880:1880"
+fi
+
 if [ "${SUFFIX}X" = "X" ]; then
-    echo "Usage: $0 [watson | iothub | aws]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]"
     exit 2
 fi
 
 if [ "${DOCKER}X" = "X" ]; then
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt]"
+    echo "Usage: $0 [watson | iothub | aws generic-mqtt | generic-mqtt-getstarted]"
     exit 3
 fi
 
 if [ "${IP}X" = "X" ]; then
     echo "No IP address was found. Must be connected to the Internet to use."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]"
     exit 4
 fi
 
@@ -80,7 +86,7 @@ if [ -x "${DOCKER}" ]; then
     ${DOCKER} pull ${IMAGE}
     if [ "$?" = "0" ]; then
        echo "Starting mbed Connector bridge image..."
-       ${DOCKER} run -d -p ${IP}:28519:28519 -p ${IP}:28520:28520 -p ${IP}:${BRIDGE_SSH}:22 -p ${IP}:8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh
+       ${DOCKER} run -d ${NODE_RED_PORT} -p ${IP}:28519:28519 -p ${IP}:28520:28520 -p ${IP}:${BRIDGE_SSH}:22 -p ${IP}:8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh
        if [ "$?" = "0" ]; then
            echo "mbed Connector bridge started!  SSH is available to log into the bridge runtime"
 	   exit 0
@@ -94,6 +100,6 @@ if [ -x "${DOCKER}" ]; then
     fi 
 else
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]"
     exit 3
 fi

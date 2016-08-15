@@ -11,4 +11,6 @@ Then edit each script:
 
 The sample K64F endpoint code I use is located here: https://github.com/ARMmbed/mbed-ethernet-sample-withdm
 
+NOTE: Some installations have older Paho MQTT installed that is not fully v3.1/v3.1.1 compatible. If you have connection issues, I suggest you review your installation and confirm that its current. 
+
 Enjoy!

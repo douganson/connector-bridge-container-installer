@@ -16,7 +16,13 @@ Arguments:
  
    generic-mqtt-getstarted - Like "generic-mqtt" but also has embedded Mosquitto and NodeRED built in by default
 
-Once completed, the selected bridge runtime will be running. You can then:
+NOTE: In order to use this script, you will need:
+
+    - either macOS or Ubuntu environment with a docker runtime installed and operational by the user account
+    
+    - a DockerHub account created
+
+Once completed, the selected bridge runtime will be running (though unconfigured...). You must then:
 
 1). Open a Browser
 

@@ -10,6 +10,7 @@ DOCKER="`which docker`"
 BRIDGE_SSH="2222"
 NODE_RED_PORT=""
 MQTT_PORT=""
+API_TOKEN=""
 
 if [ "${TYPE}X" = "X" ]; then
     echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]"
@@ -36,6 +37,9 @@ if [ "${TYPE}" = "generic-mqtt-getstarted" ]; then
     SUFFIX="mqtt-getstarted"
     NODE_RED_PORT="-p ${IP}:2880:1880"
     MQTT_PORT="-p ${IP}:3883:1883"
+    if [ "$2" != "" ]; then
+      API_TOKEN=$2
+    fi
 fi
 
 if [ "${SUFFIX}X" = "X" ]; then
@@ -88,7 +92,7 @@ if [ -x "${DOCKER}" ]; then
     ${DOCKER} pull ${IMAGE}
     if [ "$?" = "0" ]; then
        echo "Starting mbed Connector bridge image..."
-       ${DOCKER} run -d ${MQTT_PORT} ${NODE_RED_PORT} -p ${IP}:28519:28519 -p ${IP}:28520:28520 -p ${IP}:${BRIDGE_SSH}:22 -p ${IP}:8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh
+       ${DOCKER} run -d ${MQTT_PORT} ${NODE_RED_PORT} -p ${IP}:28519:28519 -p ${IP}:28520:28520 -p ${IP}:${BRIDGE_SSH}:22 -p ${IP}:8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh ${API_TOKEN}
        if [ "$?" = "0" ]; then
            echo "mbed Connector bridge started!  SSH is available to log into the bridge runtime"
 	   exit 0

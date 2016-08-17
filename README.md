@@ -2,7 +2,7 @@ This is the installation script that can pull down and start the mbed Connector 
 
 Usage:
 
-   get_bridge.sh [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted {use-long-polling}]
+   get_bridge.sh [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted] {Connector API Token} {use-long-polling}
 
 Arguments:
 
@@ -16,34 +16,53 @@ Arguments:
  
    generic-mqtt-getstarted - Like "generic-mqtt" but also has embedded Mosquitto and NodeRED built in by default
 
-   OPTION: add "use-long-polling" if the bridge is to be operated behind a NAT were TCP port 28520 is not passed through to the docker host running the bridge image.
+Additional Options:
+    
+   {Connector API Token} - if a Connector API Token is supplied, it will be set in the configuration initially. Otherwise, go to https://<docker host IP address>:8234 and supply it there ("save" first, then "restart")
 
-NOTE: In order to use this script, you will need:
+   use-long-polling - if the bridge is to be operated behind a NAT were TCP port 28520 is not passed through to the docker host running the bridge image.
+
+
+Requirements:
 
     - either macOS or Ubuntu environment with a docker runtime installed and operational by the user account
     
     - a DockerHub account created
 
-Once completed, the selected bridge runtime will be running (though unconfigured...). You must then:
+    - for "watson | aws | iothub" options, 3rd Party cloud accounts must be created. For more information see:
+
+	watson: https://github.com/ARMmbed/connector-bridge-container-iotf
+	
+	iothub: https://github.com/ARMmbed/connector-bridge-container-iothub
+	
+	aws: https://github.com/ARMmbed/connector-bridge-container-awsiot
+
+
+If you have chosen to enter your API token after the "pull" or if you have choosen "watson | aws | iothub", additional configuration is required to bind to the respective 3rd party cloud accounts:
 
 1). Open a Browser
 
-2). Navigate to: https://<IP address of your bridge>:8234
+2). Navigate to: https://<docker host IP address>:8234
 
-2a). Accept the self-signed certificate
+3). Accept the self-signed certificate
 
-3). Default username: admin, pw: admin
+4). Default username: admin, pw: admin
 
-4). Complete the configuration of the bridge. After entering a given value, press "Save" before editing the next value... When all values are entered and "Saved", press "Restart"
+5). Complete the configuration of the bridge. After entering a given value, press "Save" before editing the next value... When all values are entered and "Saved", press "Restart"
 
-NOTE: Each bridge runtime also has "ssh" (default port: 2222) installed so that you can ssh into the runtime and tinker with it. The default username is "arm" and password "arm1234"
 
-NOTE: For the "getstarted" option, there is a NODEFLOW-getstarted.txt file that you can copy and paste into your NodeRED runtime located at http://<macOS or ubuntu host IP address>:2880 ... simply import and Deploy... You can then load and run the K64F sample https://github.com/ARMmbed/mbed-ethernet-sample-withdm and interact with it via the imported flow (you must change your MBED_ENDPOINT_NAME in both the endpoint code as well as the NODEFLOW nodes...)
+Additional Notes:
 
-NOTE: for the test scripts, I've had issues with paho-mqtt v1.2. Try v1.1... seems to work better.
+     - Each bridge runtime also has "ssh" (default port: 2222) installed so that you can ssh into the runtime and tinker with it. The default username is "arm" and password "arm1234"
 
-NOTE: ./remove_bridge.sh removes the bridge if desired... it also removes the downloaded docker image
+     - For the "getstarted" option, there is a NODEFLOW-getstarted.txt file that you can copy and paste into your NodeRED runtime located at http://<macOS or ubuntu host IP address>:2880 ... simply import and Deploy... You can then load and run the K64F sample https://github.com/ARMmbed/mbed-ethernet-sample-withdm and interact with it via the imported flow (you must change your MBED_ENDPOINT_NAME in both the endpoint code as well as the NODEFLOW nodes...)
 
-NOTE (macos): Docker on MacOS uses virtualbox which pins the default IP address to 192.168.99.100. If you happen to change this in your installation of Docker on MacOS, you will need to edit get_bridge.sh and adjust accordingly.
+     - For the test scripts, I've had issues with paho-mqtt v1.2. Try v1.1... seems to work better.
+
+     - FYI, ./remove_bridge.sh removes the bridge if desired... it also removes the downloaded docker image
+
+     - DockerToolkit (OLD MacOS) uses Oracle VirtualBox which pins the default IP address to 192.168.99.100. If you happen to change this in your installation of Docker on MacOS, you will need to edit get_bridge.sh and adjust accordingly.
+
+     - Bridge source is Apache licensed and located here: https://github.com/ARMmbed/connector-bridge
 
 Enjoy!

@@ -5,14 +5,19 @@
 if [ "$(uname)" = "Darwin" ]; then
     if [ ! -h /usr/local/bin/docker-machine ]; then
         # MacOS (toolkit docker installed (OLD))... default is to pin IP address to 192.168.99.100
-        IP="192.168.99.100:"
+        IP="192.168.99.100"
+        echo "IP Address:" ${IP}
+        IP=${IP}:
     else
         # MacOS (native docker installed) - dont use an IP address... 
 	IP=""
+        echo "IP Address:" `uname -h`
     fi
 else
     # (assume) Linux - docker running as native host - use the host IP address
-    IP="`ip route get 8.8.8.8 | awk '{print $NF; exit}'`:"
+    IP="`ip route get 8.8.8.8 | awk '{print $NF; exit}'`"
+    echo "IP Address:" ${IP}
+    IP=${IP}:
 fi
 
 IMAGE="danson/connector-bridge-container-"
@@ -26,7 +31,7 @@ API_TOKEN=""
 LONG_POLL=""
 
 if [ "${TYPE}X" = "X" ]; then
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted] {Connector API Token} {use-long-polling}"
     exit 1
 fi
 
@@ -50,20 +55,25 @@ if [ "${TYPE}" = "generic-mqtt-getstarted" ]; then
     SUFFIX="mqtt-getstarted"
     NODE_RED_PORT="-p ${IP}2880:1880"
     MQTT_PORT="-p ${IP}3883:1883"
-    if [ "$2" != "" ]; then
-      API_TOKEN=$2
-    fi
+fi
+
+if [ "$2" != "" ]; then
+    API_TOKEN="$2"
     LONG_POLL="$3"
+fi
+if [ "$2" = "use-long-polling" ]; then
+    API_TOKEN=""
+    LONG_POLL="$2"
 fi
 
 if [ "${SUFFIX}X" = "X" ]; then
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted] {Connector API Token} {use-long-polling}"
     exit 2
 fi
 
 if [ "${DOCKER}X" = "X" ]; then
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted] {Connector API Token} {use-long-polling}"
     exit 3
 fi
 
@@ -94,7 +104,6 @@ if [ -x "${DOCKER}" ]; then
 
     IMAGE=${IMAGE}${SUFFIX}
     echo ""
-    echo "IP Address:" ${IP}
     echo "mbed Connector bridge Image:" ${IMAGE}
     echo "Pulling mbed Connector bridge image from DockerHub(tm)..."
     ${DOCKER} pull ${IMAGE}
@@ -114,6 +123,6 @@ if [ -x "${DOCKER}" ]; then
     fi 
 else
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted] {Connector API Token} {use-long-polling}"
     exit 3
 fi

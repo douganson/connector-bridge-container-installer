@@ -62,7 +62,7 @@ if [ "$2" != "" ]; then
     LONG_POLL="$3"
 fi
 if [ "$2" = "use-long-polling" ]; then
-    API_TOKEN=""
+    API_TOKEN="$3"
     LONG_POLL="$2"
 fi
 

@@ -5,7 +5,7 @@
 DOCKER="`which docker`"
 
 if [ -x "${DOCKER}" ]; then
-    ID=`${DOCKER} ps | grep connector-bridge | awk '{print $1}'`
+    ID=`${DOCKER} ps -a | grep home | grep arm | awk '{print $1}'`
 
     if [ "${ID}X" != "X" ]; then
         echo "Stopping $ID"

@@ -3,11 +3,16 @@
 # set -x
 
 if [ "$(uname)" = "Darwin" ]; then
-    # MacOSX - docker on macos (virtualbox) uses the default IP address of 192.168.99.100
-    IP="192.168.99.100"
+    if [ ! -h /usr/local/bin/docker-machine ]; then
+        # MacOS (toolkit docker installed (OLD))... default is to pin IP address to 192.168.99.100
+        IP="192.168.99.100:"
+    else
+        # MacOS (native docker installed) - dont use an IP address... 
+	IP=""
+    fi
 else
     # (assume) Linux - docker running as native host - use the host IP address
-    IP="`ip route get 8.8.8.8 | awk '{print $NF; exit}'`"
+    IP="`ip route get 8.8.8.8 | awk '{print $NF; exit}'`:"
 fi
 
 IMAGE="danson/connector-bridge-container-"
@@ -43,8 +48,8 @@ fi
 
 if [ "${TYPE}" = "generic-mqtt-getstarted" ]; then
     SUFFIX="mqtt-getstarted"
-    NODE_RED_PORT="-p ${IP}:2880:1880"
-    MQTT_PORT="-p ${IP}:3883:1883"
+    NODE_RED_PORT="-p ${IP}2880:1880"
+    MQTT_PORT="-p ${IP}3883:1883"
     if [ "$2" != "" ]; then
       API_TOKEN=$2
     fi
@@ -62,14 +67,8 @@ if [ "${DOCKER}X" = "X" ]; then
     exit 3
 fi
 
-if [ "${IP}X" = "X" ]; then
-    echo "No IP address was found. Must be connected to the Internet to use."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
-    exit 4
-fi
-
 if [ -x "${DOCKER}" ]; then
-    ID=`${DOCKER} ps | grep connector-bridge | awk '{print $1}'`
+    ID=`${DOCKER} ps -a | grep home | grep arm | awk '{print $1}'`
 
     if [ "${ID}X" != "X" ]; then
         echo "Stopping $ID"
@@ -101,7 +100,7 @@ if [ -x "${DOCKER}" ]; then
     ${DOCKER} pull ${IMAGE}
     if [ "$?" = "0" ]; then
        echo "Starting mbed Connector bridge image..."
-       ${DOCKER} run -d ${MQTT_PORT} ${NODE_RED_PORT} -p ${IP}:28519:28519 -p ${IP}:28520:28520 -p ${IP}:${BRIDGE_SSH}:22 -p ${IP}:8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh ${API_TOKEN} ${LONG_POLL}
+       ${DOCKER} run -d ${MQTT_PORT} ${NODE_RED_PORT} -p ${IP}28519:28519 -p ${IP}28520:28520 -p ${IP}${BRIDGE_SSH}:22 -p ${IP}8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh ${API_TOKEN} ${LONG_POLL}
        if [ "$?" = "0" ]; then
            echo "mbed Connector bridge started!  SSH is available to log into the bridge runtime"
 	   exit 0

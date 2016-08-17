@@ -2,7 +2,7 @@ This is the installation script that can pull down and start the mbed Connector 
 
 Usage:
 
-   get_bridge.sh [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]
+   get_bridge.sh [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted {use-long-polling}]
 
 Arguments:
 

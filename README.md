@@ -2,7 +2,7 @@ This is the installation script that can pull down and start the mbed Connector 
 
 Usage:
 
-   get_bridge.sh [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]
+   get_bridge.sh [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]
 
 Arguments:
 
@@ -15,6 +15,8 @@ Arguments:
    generic-mqtt - instantiate a bridge for a generic MQTT broker such as Mosquitto
  
    generic-mqtt-getstarted - Like "generic-mqtt" but also has embedded Mosquitto and NodeRED built in by default
+
+   OPTION: add "enable-long-polling" if the bridge is to be operated behind a NAT were TCP port 28520 is not passed through to the docker host running the bridge image.
 
 NOTE: In order to use this script, you will need:
 

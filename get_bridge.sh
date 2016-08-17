@@ -11,9 +11,10 @@ BRIDGE_SSH="2222"
 NODE_RED_PORT=""
 MQTT_PORT=""
 API_TOKEN=""
+LONG_POLL=""
 
 if [ "${TYPE}X" = "X" ]; then
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
     exit 1
 fi
 
@@ -40,22 +41,23 @@ if [ "${TYPE}" = "generic-mqtt-getstarted" ]; then
     if [ "$2" != "" ]; then
       API_TOKEN=$2
     fi
+    LONG_POLL="$3"
 fi
 
 if [ "${SUFFIX}X" = "X" ]; then
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
     exit 2
 fi
 
 if [ "${DOCKER}X" = "X" ]; then
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws generic-mqtt | generic-mqtt-getstarted]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
     exit 3
 fi
 
 if [ "${IP}X" = "X" ]; then
     echo "No IP address was found. Must be connected to the Internet to use."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
     exit 4
 fi
 
@@ -92,7 +94,7 @@ if [ -x "${DOCKER}" ]; then
     ${DOCKER} pull ${IMAGE}
     if [ "$?" = "0" ]; then
        echo "Starting mbed Connector bridge image..."
-       ${DOCKER} run -d ${MQTT_PORT} ${NODE_RED_PORT} -p ${IP}:28519:28519 -p ${IP}:28520:28520 -p ${IP}:${BRIDGE_SSH}:22 -p ${IP}:8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh ${API_TOKEN}
+       ${DOCKER} run -d ${MQTT_PORT} ${NODE_RED_PORT} -p ${IP}:28519:28519 -p ${IP}:28520:28520 -p ${IP}:${BRIDGE_SSH}:22 -p ${IP}:8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh ${API_TOKEN} ${LONG_POLL}
        if [ "$?" = "0" ]; then
            echo "mbed Connector bridge started!  SSH is available to log into the bridge runtime"
 	   exit 0
@@ -106,6 +108,6 @@ if [ -x "${DOCKER}" ]; then
     fi 
 else
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
     exit 3
 fi

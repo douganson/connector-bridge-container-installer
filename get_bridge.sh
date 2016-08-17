@@ -14,7 +14,7 @@ API_TOKEN=""
 LONG_POLL=""
 
 if [ "${TYPE}X" = "X" ]; then
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
     exit 1
 fi
 
@@ -45,19 +45,19 @@ if [ "${TYPE}" = "generic-mqtt-getstarted" ]; then
 fi
 
 if [ "${SUFFIX}X" = "X" ]; then
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
     exit 2
 fi
 
 if [ "${DOCKER}X" = "X" ]; then
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
     exit 3
 fi
 
 if [ "${IP}X" = "X" ]; then
     echo "No IP address was found. Must be connected to the Internet to use."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
     exit 4
 fi
 
@@ -108,6 +108,6 @@ if [ -x "${DOCKER}" ]; then
     fi 
 else
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <enable-long-polling>]"
+    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
     exit 3
 fi

@@ -3,10 +3,10 @@
 # set -x
 
 if [ "$(uname)" = "Darwin" ]; then
-    # MacOSX
-    IP="`ifconfig en0 | awk '$1 == "inet" {print $2}'`"
+    # MacOSX - docker on macos (virtualbox) uses the default IP address of 192.168.99.100
+    IP="192.168.99.100"
 else
-    # (assume) Linux
+    # (assume) Linux - docker running as native host - use the host IP address
     IP="`ip route get 8.8.8.8 | awk '{print $NF; exit}'`"
 fi
 

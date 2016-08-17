@@ -44,4 +44,6 @@ NOTE: for the test scripts, I've had issues with paho-mqtt v1.2. Try v1.1... see
 
 NOTE: ./remove_bridge.sh removes the bridge if desired... it also removes the downloaded docker image
 
+NOTE (macos): Docker on MacOS uses virtualbox which pins the default IP address to 192.168.99.100. If you happen to change this in your installation of Docker on MacOS, you will need to edit get_bridge.sh and adjust accordingly.
+
 Enjoy!

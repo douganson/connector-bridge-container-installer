@@ -2,7 +2,14 @@
 
 # set -x
 
-IP="`ip route get 8.8.8.8 | awk '{print $NF; exit}'`"
+if [ "$(uname)" == "Darwin" ]; then
+    # MacOSX
+    IP="`ifconfig en0 | awk '$1 == "inet" {print $2}'`"
+else
+    # (assume) Linux
+    IP="`ip route get 8.8.8.8 | awk '{print $NF; exit}'`"
+fi
+
 IMAGE="danson/connector-bridge-container-"
 TYPE="$1"
 SUFFIX=""

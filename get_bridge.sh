@@ -2,7 +2,7 @@
 
 # set -x
 
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ]; then
     # MacOSX
     IP="`ifconfig en0 | awk '$1 == "inet" {print $2}'`"
 else

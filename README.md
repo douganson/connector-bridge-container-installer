@@ -42,4 +42,6 @@ NOTE: For the "getstarted" option, there is a NODEFLOW-getstarted.txt file that 
 
 NOTE: for the test scripts, I've had issues with paho-mqtt v1.2. Try v1.1... seems to work better.
 
+NOTE: ./remove_bridge.sh removes the bridge if desired... it also removes the downloaded docker image
+
 Enjoy!

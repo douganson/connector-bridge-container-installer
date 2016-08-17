@@ -11,7 +11,7 @@ if [ "$(uname)" = "Darwin" ]; then
     else
         # MacOS (native docker installed) - dont use an IP address... 
 	IP=""
-        echo "IP Address:" `uname -s`
+        echo "IP Address:" `hostname -s`
     fi
 else
     # (assume) Linux - docker running as native host - use the host IP address

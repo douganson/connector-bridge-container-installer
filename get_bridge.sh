@@ -17,7 +17,7 @@ elif [ "$(uname)" = "MINGW64_NT-10.0" ]; then
     # Windows - Must use the Docker Toolkit with the latest VirtualBox installed... pinned to 192.168.99.100 
     IP="192.168.99.100"
     echo "IP Address:" ${IP} 
-    DOCKER="docker"
+    IP=${IP}:
 else
     # (assume) Linux - docker running as native host - use the host IP address
     IP="`ip route get 8.8.8.8 | awk '{print $NF; exit}'`"

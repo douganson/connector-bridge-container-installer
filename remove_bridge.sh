@@ -2,7 +2,7 @@
 
 # set -x
 
-DOCKER="`which docker`"
+DOCKER="docker"
 DOCKER_VER="`docker --version`"
 
 if [ "${DOCKER_VER}X" != "X" ]; then

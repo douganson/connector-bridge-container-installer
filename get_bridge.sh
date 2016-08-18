@@ -28,7 +28,7 @@ fi
 IMAGE="danson/connector-bridge-container-"
 TYPE="$1"
 SUFFIX=""
-DOCKER="`which docker`"
+DOCKER="docker"
 BRIDGE_SSH="2222"
 NODE_RED_PORT=""
 MQTT_PORT=""

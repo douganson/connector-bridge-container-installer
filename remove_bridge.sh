@@ -3,20 +3,21 @@
 # set -x
 
 DOCKER="`which docker`"
+DOCKER_VER="`docker --version`"
 
-if [ -x "${DOCKER}" ]; then
+if [ "${DOCKER_VER}X" != "X" ]; then
     ID=`${DOCKER} ps -a | grep home | grep arm | awk '{print $1}'`
 
     if [ "${ID}X" != "X" ]; then
         echo "Stopping $ID"
-        docker stop ${ID}
+        ${DOCKER} stop ${ID}
     else
         echo "No running bridge container found... OK"
     fi
     
     if [ "${ID}X" != "X" ]; then
         echo "Removing $ID"
-        docker rm --force ${ID}
+        ${DOCKER} rm --force ${ID}
     fi
     
     echo "Looking for existing container image..."
@@ -24,12 +25,12 @@ if [ -x "${DOCKER}" ]; then
     ID=`${DOCKER} images | grep connector-bridge | awk '{print $3}'`
     if [ "${ID}X" != "X" ]; then
         echo "Removing Image $ID"
-        docker rmi --force ${ID}
+        ${DOCKER} rmi --force ${ID}
     else
         echo "No container image found... (OK)"
     fi
 else
     echo "ERROR: docker does not appear to be installed! Please install docker and retry."
-    echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted <use-long-polling>]"
+    echo "Usage: $0" 
     exit 3
 fi

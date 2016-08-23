@@ -20,8 +20,9 @@ Additional Options:
     
    {Connector API Token} - if a Connector API Token is supplied, it will be set in the configuration initially. Otherwise, go to https://<docker host IP address>:8234 and supply it there ("save" first, then "restart")
 
-   use-long-polling - if the bridge is to be operated behind a NAT were TCP port 28520 is not passed through to the docker host running the bridge image.
+   {use-long-polling} - provide this switch if the bridge is to be operated behind a NAT were TCP port 28520 is not passed through to the docker host running the bridge image.
 
+   {watson|iothub|aws} - if a cloud provider is specified, users can edit get_bridge.sh and enter their appropriately created cloud credentials near the top of the script. See script for details.
 
 Requirements:
 

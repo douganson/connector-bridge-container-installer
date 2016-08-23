@@ -16,6 +16,17 @@
 # If you choose to not edit these, you can still go to your installed instance (i.e. https://<docker host ip address>:8234)
 # using username "admin" with default password "admin" and set the values (SAVE after EACH!!!). After set, press "Restart". 
 #
+# IMPORTANT NOTE: You may need to place  a "\" (i.e. back slash...)  in front of any specific key token values (i.e. & or / etc...) within
+#                 the creds for your cloud account. sed() can mis-interpet them otherwise.
+#
+#                 Example: 
+#
+#                           AWS_IOT_ACCESS_KEY_TOKEN="dkdkjejuf98e7&dldk"
+#
+#                 Should be changed to:
+#
+#                           AWS_IOT_ACCESS_KEY_TOKEN="dkdkjejuf98e7\&dldk"
+#
 #
 
 #

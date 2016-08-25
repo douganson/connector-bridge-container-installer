@@ -2,7 +2,21 @@
 
 # set -x
 
+
 #
+# Defaults...
+#
+IMAGE="danson/connector-bridge-container-"
+TYPE="$1"
+SUFFIX=""
+DOCKER="docker"
+BRIDGE_SSH="2222"
+NODE_RED_PORT=""
+MQTT_PORT=""
+API_TOKEN=""
+LONG_POLL=""
+CLOUD_ARGS=""
+
 # START: Optional Configuration for Cloud Providers (IBM Watson IoT, MS Azure IoTHub, Amazon IoT)
 #
 # Simply set these and use one of the specified options in the invocation of this script. For example (IBM Watson):
@@ -91,20 +105,6 @@ else
     echo "IP Address:" ${IP}
     IP=${IP}:
 fi
-
-#
-# Defaults...
-#
-IMAGE="danson/connector-bridge-container-"
-TYPE="$1"
-SUFFIX=""
-DOCKER="docker"
-BRIDGE_SSH="2222"
-NODE_RED_PORT=""
-MQTT_PORT=""
-API_TOKEN=""
-LONG_POLL=""
-CLOUD_ARGS=""
 
 if [ "${TYPE}X" = "X" ]; then
     echo "Usage: $0 [watson | iothub | aws | generic-mqtt | generic-mqtt-getstarted] {Connector API Token} {use-long-polling}"

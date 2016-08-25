@@ -54,6 +54,15 @@ AWS_IOT_ACCESS_KEY_ID=""
 AWS_IOT_ACCESS_KEY_SECRET=""
 
 #
+# Standalone MQTT Broker
+#
+MQTT_IP_ADDRESS=""
+MQTT_USERNAME=""
+MQTT_PASSWORD=""
+MQTT_CLIENTID=""
+MQTT_PORT=""
+
+#
 # END: Optional Configuration for Cloud Providers (IBM Watson IoT, MS Azure IoTHub, Amazon IoT)
 #
 
@@ -135,6 +144,8 @@ fi
 
 if [ "${TYPE}" = "generic-mqtt" ]; then
     SUFFIX="mqtt"
+    CLOUD_ARGS="${API_TOKEN} ${MQTT_IP_ADDRESS} ${MQTT_USERNAME} ${MQTT_PASSWORD} ${MQTT_CLIENTID} ${MQTT_PORT}""
+    API_TOKEN=""
 fi
 
 if [ "${TYPE}" = "generic-mqtt-getstarted" ]; then

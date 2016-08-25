@@ -74,7 +74,6 @@ MQTT_IP_ADDRESS=""
 MQTT_USERNAME=""
 MQTT_PASSWORD=""
 MQTT_CLIENTID=""
-MQTT_PORT=""
 
 #
 # END: Optional Configuration for Cloud Providers (IBM Watson IoT, MS Azure IoTHub, Amazon IoT)

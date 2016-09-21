@@ -276,6 +276,7 @@ else
     ${DOCKER} pull ${IMAGE}
     if [ "$?" = "0" ]; then
        echo "Starting mbed Connector bridge image..."
+       echo ${DOCKER} run -d ${MQTT_PORT} ${NODE_RED_PORT} -p ${IP}28519:28519 -p ${IP}28520:28520 -p ${IP}${BRIDGE_SSH}:22 -p ${IP}8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh ${API_TOKEN} ${LONG_POLL} ${CLOUD_ARGS}
        ${DOCKER} run -d ${MQTT_PORT} ${NODE_RED_PORT} -p ${IP}28519:28519 -p ${IP}28520:28520 -p ${IP}${BRIDGE_SSH}:22 -p ${IP}8234:8234 -t ${IMAGE}  /home/arm/start_instance.sh ${API_TOKEN} ${LONG_POLL} ${CLOUD_ARGS}
        if [ "$?" = "0" ]; then
            echo "mbed Connector bridge started!  SSH is available to log into the bridge runtime"

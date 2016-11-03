@@ -23,7 +23,8 @@ LOCAL_NODERED="http://localhost:2880"
 #
 # ARM mbed REST API endpoint
 # 
-MBED_REST_API="api.connector.mbed.com"
+# MBED_REST_API="api.connector.mbed.com"
+MBED_REST_API="api.mbedcloud.com"
 
 #
 # Enable/Disable previous bridge configuration save/restore

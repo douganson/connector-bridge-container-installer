@@ -234,7 +234,7 @@ restore_config() {
             SSH_IP=${BASE_IP}
 	    START=""
 	    STOP=""
-	    SCP_IP="${SSH_IP}"
+	    SCP_IP="${SSH_IP}:"
         fi
  	echo "Beginning restoration... Updating known_hosts..."
 	# echo ssh-keygen -R ${START}${SSH_IP}${STOP}2222
